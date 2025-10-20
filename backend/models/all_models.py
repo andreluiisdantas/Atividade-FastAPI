@@ -1,0 +1,1 @@
+from models.monster_model import *
