@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monster High</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>API Monster High</h1>
+
+    <a href="./pets.html">Pets</a>
+
+    <h2>Criar Novo Monstro</h2>
+    <form id="createMonsterForm">
+        <label for="nome">Nome:</label>
+        <input type="text" id="create_nome" required><br>
+
+        <label for="tipo_monstro">Tipo de Monstro:</label>
+        <input type="text" id="create_tipo_monstro" required><br>
+
+        <label for="pai_famoso">Pai Famoso:</label>
+        <input type="text" id="create_pai_famoso" required><br>
+
+        <label for="cor_favorita">Cor Favorita:</label>
+        <input type="text" id="create_cor_favorita" required><br>
+
+        <button type="submit">Criar Monstro</button>
+    </form>
+
+    <h2>Monstros Existentes</h2>
+    <div id="monsterContainer">
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="script.js" defer></script>
+</body>
+</html>
+

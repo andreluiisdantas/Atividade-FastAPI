@@ -2,7 +2,7 @@ from typing import Optional
 from pydantic import BaseModel as SCBaseModel
 
 class MonsterSchema(SCBaseModel):
-    id_monstro: Optional[int] = None
+    id_monster: Optional[int] = None
     nome: str
     tipo_monstro: str
     pai_famoso: str
