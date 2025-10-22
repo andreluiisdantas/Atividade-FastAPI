@@ -3,7 +3,7 @@ from fastapi import APIRouter, status, Depends, HTTPException, Response
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
-from models.monster_model import MonsterModel
+from models.monster_model import *
 from schemas.monster_schema import MonsterSchema
 from core.deps import get_session
 
@@ -66,14 +66,20 @@ async def put_monster(monster_id: int, monster: MonsterSchema, db: AsyncSession 
 # DELETE
 @router.delete('/{monster_id}', status_code=status.HTTP_204_NO_CONTENT)
 async def delete_monster(monster_id: int, db: AsyncSession = Depends(get_session)):
+    from sqlalchemy import delete
+
     async with db as session:
-        query = select(MonsterModel).filter(MonsterModel.id_monster == monster_id)
-        result = await session.execute(query)
-        monster_del = result.scalar_one_or_none()
+        query_monster = select(MonsterModel).filter(MonsterModel.id_monster == monster_id)
+        result_monster = await session.execute(query_monster)
+        monster_del = result_monster.scalar_one_or_none()
         
         if monster_del:
+            delete_pets_stmt = delete(PetModel).where(PetModel.dono_id == monster_id)
+            await session.execute(delete_pets_stmt)
+            
             await session.delete(monster_del)
             await session.commit()
+            
             return Response(status_code=status.HTTP_204_NO_CONTENT)
         else:
             raise HTTPException(detail='Monstro não encontrado.', status_code=status.HTTP_404_NOT_FOUND)
